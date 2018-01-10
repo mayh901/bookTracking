@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Book from './Book';
+import Link from
 
 class BookShelf extends Component{
     //will hold the state of what is happining
@@ -51,8 +52,13 @@ class BookShelf extends Component{
             </div>
             </div>
             {/* search part brought in */}
-
+            
+            <Link to="/search" className="open-search">
+                  Add a book
+            </Link>
+            
             </div>
+            
 
 
         )
