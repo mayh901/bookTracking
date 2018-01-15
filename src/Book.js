@@ -4,11 +4,13 @@ import './App.css';
 class Book extends Component {
 
   render () {
-    const {books} = this.props;
-    
+      // store the books coming in 
+     const {books} = this.props;
+    //breaks down books 
     return (
     <div className="bookshelf-books">
         <ol className="books-grid">
+        {/* map over the books to get a single book and fill it in the singleBook aray */}
         {books.length > 0 && 
         books.map(singleBook => (
         <li key={singleBook.id}>
@@ -22,6 +24,7 @@ class Book extends Component {
                         backgroundImage: `url(${singleBook.imageLinks.thumbnail})`,
                         }}
                     />
+                    {/* stores the starus of bookshelf in perticular book */}
                     <div className="book-shelf-changer">
                         <select 
                         name="bookShelf" 
@@ -36,6 +39,7 @@ class Book extends Component {
                         </select>
                     </div>
                     </div>
+                    {/* pulls book title and author form the singlBook array */}
                     <div className="book-title">{singleBook.title}</div>
                     <div className="book-authors">
                         {singleBook.authors ? singleBook.authors.join(", "): ""}
