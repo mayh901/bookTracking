@@ -10,47 +10,29 @@ class SearchBook extends Component {
     query:"",
     searchedBooks:[]
   };
+// worked with teammate to help solve my search 
+//and mentor to help debug 
 
-  queryBooks = query => {
-    let searchedBooks= [];
-    
-    if(query){
-      let searchResults = [];
-
-      BooksAPI.search(query).then(results =>{
-        if(results && results.length){
-          searchResults = results.map(result =>{
-            result.shelf = this.addShelf(result);
-            return result;
-          });
-          this.setState({
-            searchedBooks: searchResults 
-          });
-        }else{
-          this.setState({
-            searchBooks: []
-          });
-        } 
-      });
-    }else{
-        this.setState({
-          searchedBooks: []
-        });
-      }
-      this.setState({
-        query: query.trim()     
-      });
-   };
-
-   addShelf(result){
-     let isShelf = this.props.books.filter(book => book.id === result.id);
-      return isShelf.length ? isShelf[0].shelf  :"none";
-   }
-
-      
+  queryTitle = e => {
+    const query = e.target.value;
+    this.setState({query: query});
+    //searchbook holds the search returned form the API 
+    if (this.state.query) {
+      this.searchedBooks = BooksAPI.search(this.state.query).then (result => {
+       // if there is a result return to screen 
+        if(result.length > 0){
+        return this.setState ({searchedBooks: result}) 
+       } else{
+         // return empyt array else
+         this.setState ({searchedBooks: []})}
+    });
+  }
+else{
+  this.setState ({searchedBooks: []})
+}
+}
     
   render () {
-  
     return (
       <div className="search-books">
       <div className="search-books-bar">
@@ -61,10 +43,13 @@ class SearchBook extends Component {
         <input 
         type="text" 
         placeholder="Search by title or author" 
-        onChange={event=>this.queryBooks(event.target.value)}/>
+        onChange={this.queryTitle}
+        value={this.state.query}
+        />
         </div>
         </div>
         <div className="search-books-results">
+        {/* return book componenent if the searched books is >0 */}
         {this.state.searchedBooks.length > 0 && 
        <Book 
        books={this.state.searchedBooks}
