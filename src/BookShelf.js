@@ -53,11 +53,11 @@ class BookShelf extends Component{
             </div>
             </div>
             {/* search part brought in */}
-            
-            <Link to="/search" className="open-search">
+            <div className="open-search">
+            <Link to="/search" >
                   Add a book
             </Link>
-            
+            </div>
             </div>
             
 
