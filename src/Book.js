@@ -1,18 +1,16 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import './App.css';
 
 class Book extends Component {
-  static propTypes = {
-    books: PropTypes.array.isRequired,
-  };
+
   render () {
     const {books} = this.props;
     
     return (
     <div className="bookshelf-books">
         <ol className="books-grid">
-        {books.length > 0 && books.map(singleBook => 
+        {books.length > 0 && 
+        books.map(singleBook => (
         <li key={singleBook.id}>
             <div className="book">
                 <div className="book-top">
@@ -25,7 +23,11 @@ class Book extends Component {
                         }}
                     />
                     <div className="book-shelf-changer">
-                        <select name="bookShelf" value={books.shelf} onChange={e =>this.props.changeShelf(e, singleBook)} >
+                        <select 
+                        name="bookShelf" 
+                        value={singleBook.shelf}
+                        onChange={e =>this.props.changeShelf(e, singleBook)} 
+                        >
                         <option value="none" disabled>Move to...</option>
                         <option value="currentlyReading">Currently Reading</option>
                         <option value="wantToRead">Want to Read</option>
@@ -36,11 +38,11 @@ class Book extends Component {
                     </div>
                     <div className="book-title">{singleBook.title}</div>
                     <div className="book-authors">
-                        {books.authors ? singleBook.authors.join(","): ""}
+                        {singleBook.authors ? singleBook.authors.join(", "): ""}
                     </div>
                 </div>
                 </li>
-                    )}
+                    ))}
                     </ol>
                 </div>
 
