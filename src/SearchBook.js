@@ -67,7 +67,7 @@ class SearchBook extends Component {
         <div className="search-books-results">
         {this.state.searchedBooks.length > 0 && 
        <Book 
-       book={this.state.searchedBooks}
+       books={this.state.searchedBooks}
        changeShelf={this.props.changeShelf}
        />}
     </div>
