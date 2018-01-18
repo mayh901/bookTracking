@@ -1,10 +1,4 @@
-// Created by Hannah May 
-// For Udacity Course
-// Book tracking app
-
-
-
-import React from 'react';
+import React from 'react';  
 import {Route} from 'react-router-dom';
 
 import * as BooksAPI from './BooksAPI';
