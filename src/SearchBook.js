@@ -19,10 +19,16 @@ class SearchBook extends Component {
     //searchbook holds the search returned form the API 
     if (this.state.query) {
       this.searchedBooks = BooksAPI.search(this.state.query).then (result => {
+        let searchedBooks1=[];
        // if there is a result return to screen 
         if(result.length > 0){
-        return this.setState ({searchedBooks: result}) 
+          searchedBooks1 = result.map(result => {
+            result.shelf = this.addShelf(result);
+            return result;
+          });
+        this.setState ({searchedBooks: searchedBooks1});
        } else{
+        result.shelf = this.addShelf(result);
          // return empyt array else
          this.setState ({searchedBooks: []})}
     });
@@ -31,7 +37,12 @@ else{
   this.setState ({searchedBooks: []})
 }
 }
-    
+//updating the  shelf box
+addShelf(result) {
+  console.log(result)
+  let hasShelf = this.props.books.filter(book => book.id === result.id);
+  return hasShelf.length ? hasShelf[0].shelf : "none";
+}
   render () {
     return (
       <div className="search-books">
