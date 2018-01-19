@@ -39,7 +39,6 @@ else{
 }
 //updating the  shelf box
 addShelf(result) {
-  console.log(result)
   let hasShelf = this.props.books.filter(book => book.id === result.id);
   return hasShelf.length ? hasShelf[0].shelf : "none";
 }
