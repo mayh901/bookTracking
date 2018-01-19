@@ -1,56 +1,52 @@
-import React, {Component} from 'react';
+import React from 'react';
 import './App.css';
-
-class Book extends Component {
-
-  render () {
-      // store the books coming in 
-     const {books} = this.props;
-    //breaks down books 
+const Book = (props) => {
+   
+    const {books} = props;
     return (
-    <div className="bookshelf-books">
+      <div className="bookshelf-books">
         <ol className="books-grid">
-        {/* map over the books to get a single book and fill it in the singleBook aray */}
-        {books.length > 0 && 
-        books.map(singleBook => (
-        <li key={singleBook.id}>
-            <div className="book">
-                <div className="book-top">
-                    <div
+          {books.length > 0 && 
+            books.map(singleBook => { 
+              const { id, imageLinks, shelf, title, authors } = singleBook;
+              const thumbnail = imageLinks ? singleBook.imageLinks.thumbnail :`http://via.placeholder.com/193x128`
+              return (
+                <li key={id}>
+                  <div className="book">
+                    <div className="book-top">
+                      <div
                         className="book-cover"
                         style={{
                         width: 128,
                         height: 193,
-                        backgroundImage: `url(${singleBook.imageLinks.thumbnail})`,
+                        backgroundImage: `url(${thumbnail})`,
                         }}
-                    />
-                    {/* stores the starus of bookshelf in perticular book */}
-                    <div className="book-shelf-changer">
+                      />
+                      <div className="book-shelf-changer">
                         <select 
                         name="bookShelf" 
-                        value={singleBook.shelf}
-                        onChange={e =>this.props.changeShelf(e, singleBook)} 
+                        value={shelf}
+                        onChange={e => props.changeShelf(e, singleBook)} 
                         >
-                        <option value="none" disabled>Move to...</option>
+                        <option disabled>Move to...</option>
                         <option value="currentlyReading">Currently Reading</option>
                         <option value="wantToRead">Want to Read</option>
                         <option value="read">Read</option>
                         <option value="none">None</option>
                         </select>
+                      </div>
                     </div>
-                    </div>
-                    {/* pulls book title and author form the singlBook array */}
-                    <div className="book-title">{singleBook.title}</div>
+                    <div className="book-title">{title}</div>
                     <div className="book-authors">
-                        {singleBook.authors ? singleBook.authors.join(", "): ""}
+                      {authors ? authors.join(", "): ""}
                     </div>
-                </div>
+                  </div>
                 </li>
-                    ))}
-                    </ol>
-                </div>
-
+              )
+            })}
+        </ol>   
+      </div>
     );
-  }
 }
+
 export default Book;
